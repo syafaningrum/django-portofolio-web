@@ -37,7 +37,7 @@
                 </div>
             </nav>
             
-            <header class="py-5">
+            <header class="py-5 mt-md-5">
                 <div class="container px-5 pb-5">
                     <div class="row gx-5 align-items-center">
                         <div class="col-xxl-5">
@@ -45,33 +45,34 @@
                             <div class="text-center text-xxl-start">
                             {% for identity in identity %}
                                 <h1 class="display-3 fw-bolder mb-5"><span class="text-gradient d-inline">Hi! <br> I'm {{ identity.name }}</span></h1>
-                                <p class="lead fw-light text-primary mb-4"><span class="fw-bolder text-secondary">I am a telecommunications engineer with an interest in networking</span></p>
+                                <p class="lead fw-light text-primary mb-4"><span class="fw-bolder text-secondary">I am a </span><span class="text-gradient d-inline" style="font-size: 20px; font-weight: bold;">{{ identity.spesialized }} </span>
+                                <span class="fw-bolder text-secondary">{{ identity.description }}</span></p>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xxl-start mb-3">
                                     <a class="btn btn-primary btn-lg px-5 py-3 me-sm-3 fs-6 fw-bolder" href="{% static 'assets/CV.pdf' %}">Download My Resume</a>
                                 </div>
-                            {% endfor %}
+                            
                             </div>
                         </div>
                         <div class="col-xxl-7">
                             <!-- Header profile picture-->
                             <div class="d-flex justify-content-center mt-5 mt-xxl-0">
-                                    <img class="profile-img" src="{% static 'assets/profiles.png' %}" alt="Avatar" />
+                                    <img class="profile-img" src="{{ identity.avatar.url }}" alt="Avatar" />
                             </div>
+                            {% endfor %}
                         </div>              
             </header>
             
             
-            <section id="resume">
-            <div class="container px-5 my-5">
+            <section id="resume"class="my-md-5">
+            <div class="container mt-md-5 px-5 my-5">
                 <div class="text-center mb-5">
                 
                     <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Resume</span></h1>
                 </div>
                 <div class="row gx-5 justify-content-center">
-                   <div class="col-lg-11 col-xl-9 col-xxl-8">
                         <!-- Education Section-->
                         <section>
-                            <h2 class="text-primary fw-bolder mb-0">Education</h2>
+                            <h2 class="mt-md-5 text-primary fw-bolder mb-0">Education</h2>
                             {% for education in education %}
                             <div class="card shadow border-0 rounded-4 mb-5">
                                 
@@ -86,10 +87,11 @@
                             {% endfor %}
                         </section>
                         
-                        <section>
-                            <div class="d-flex align-items-center justify-content-between mb-4">
+                        <section >
+                            <div class="mt-md-5 d-flex align-items-center justify-content-between mb-4">
                                 <h2 class="text-primary fw-bolder mb-0">Experience</h2>
                             </div>
+                            
                             {% for experience in experience %}
                             <div class="card shadow border-0 rounded-4 mb-5">
                                 <div class="card-body p-5">
@@ -102,7 +104,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                        <div class="text-primary fw-bolder fs-6">{{ experience.name }} </div>
+                                        <div class="text-primary fw-bolder">{{ experience.name }} </div>
                                         <div class="text-secondary fw-lighter">Held by {{ experience.heldby }} </div>
                                         <div class="text-secondary fw-lighter">{{ experience.description }} </div>
                                         </div>
@@ -119,26 +121,31 @@
                     <div class="text-center mb-5">
                         <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Projects</span></h1>
                     </div>
-                    {% for project in project %}
+                    
                     <div class="row gx-5 justify-content-center">
-                        <div class="col-lg-11 col-xl-9 col-xxl-8">
+
                             <!-- Project Card 1-->
+                            {% for project in project %}
                             <div class="card overflow-hidden shadow rounded-4 border-0 mb-5">
-                                <div class="card-body p-0">
-                                    <div class="d-flex align-items-center">
+                                <div class=" row card-body p-0">
+                                    <div class="col-xxl-2 d-flex align-items-center"><img class="project"src="{{ project.image.url }}" alt="{{ project.name }}"></div>
+                                    
+                                    <div class="col-xxl-7 d-flex align-items-center">
                                         <div class="p-5">
                                             <h2 class="fw-bolder">{{ project.name }}</h2>
                                             <div class="small fw-bolder fst-italic">{{ project.category }}</div>
                                             <div class="text-secondary fw-lighter">Purpose :{{ project.purpose }} </div>
                                             <div class="text-secondary fw-lighter">Skills : {{ project.skill }} </div>
                                             <div class="text-secondary fw-lighter">{{ project.description }} </div>
+                                            <a class="btn btn:focus-visible btn-sm fst-italic" href="{{ project.documentation }}">Click to see my documentation</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            {% endfor %}
                   
                 </div>
-                {% endfor %}
+                
             </section>
             
             
@@ -150,13 +157,14 @@
                         <div class="col-xxl-8">
                             <div class="text-center my-5">
                                 <h2 class="display-5 fw-bolder"><span class="text-gradient d-inline">Keep In Touch</span></h2>
-                                
+                                {% for identity in identity %}
                                 <div class="d-flex justify-content-center fs-2 gap-4">
                                     <a class="text-gradient" href="{{ identity.instagram }}"><i class="bi bi-instagram"></i></a>
                                     <a class="text-gradient" href="{{ identity.linkdin }}"><i class="bi bi-linkedin"></i></a>
                                     <a class="text-gradient" href="{{ identity.github }}"><i class="bi bi-github"></i></a>
-                                    <a class="text-gradient" href="{{ identity.github }}"><i class="bi bi-gmail"></i></a>
+                                    <a class="text-gradient" href="mailto:{{ identity.github }}"><i class="bi bi-envelope-fill"></i></a>
                                 </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

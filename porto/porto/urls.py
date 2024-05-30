@@ -24,6 +24,8 @@ from identity.views import index
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
-    #path('resume/', id_listview),
-    #path('project/', id_listview),
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

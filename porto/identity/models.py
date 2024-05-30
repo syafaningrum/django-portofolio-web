@@ -4,11 +4,14 @@ from django.db import models
 class Identity(models.Model):
     name       = models.CharField(max_length=120)
     email      = models.EmailField()
-    instagram  = models.CharField(max_length=120, blank=True)
-    linkdin    = models.CharField(max_length=120, blank=True)
-    github     = models.CharField(max_length=120, blank=True)
+    instagram  = models.URLField(max_length=200)
+    linkdin    = models.URLField(max_length=200)
+    github     = models.URLField(max_length=200)
+    avatar     = models.ImageField(upload_to='assets/',)
     born_date  = models.DateField(auto_now_add=False)
     born_place = models.CharField(max_length=120, blank=True)
+    spesialized= models.CharField(max_length=120)
+    description= models.TextField(blank=True, null=True)
     timestamp  = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.name
@@ -28,6 +31,8 @@ class Project(models.Model):
     skill        = models.TextField(blank=True, null=True)
     description  = models.TextField(blank=True, null=True)
     date         = models.CharField(max_length=120)
+    documentation= models.URLField(max_length=200)
+    image        = models.ImageField(upload_to='assets/',)
     def __str__(self):
         return self.name
 
